@@ -1,6 +1,7 @@
 import throttle from 'lodash.throttle'
 const form = document.querySelector(".feedback-form");
 const formInput = {};
+const STORAGE_KEY = "feedback-form-state";
 
 form.addEventListener("submit", onFormSubmit);
 form.addEventListener("input", throttle(onTextInput), 500);
@@ -10,7 +11,7 @@ populateFields();
 function onFormSubmit(evt) {
   evt.preventDefault();
   evt.currentTarget.reset();
-  localStorage.removeItem("feedback-form-state");
+  localStorage.removeItem(STORAGE_KEY);
 }
 
 function onTextInput(evt) {
@@ -18,13 +19,11 @@ function onTextInput(evt) {
 
   formInput[evt.target.name] = evt.target.value;
   formInput[evt.target.name] = evt.target.value;
-  localStorage.setItem("feedback-form-state", JSON.stringify(formInput));
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(formInput));
 }
 
 function populateFields() {
-  const previousFormState = JSON.parse(
-    localStorage.getItem("feedback-form-state")
-  );
+  const previousFormState = JSON.parse(localStorage.getItem(STORAGE_KEY));
 
   if (previousFormState) {
     const { email, message } = previousFormState;
