@@ -18,7 +18,7 @@ function onTextInput(evt) {
   evt.preventDefault();
 
   formInput[evt.target.name] = evt.target.value;
-  formInput[evt.target.name] = evt.target.value;
+  
   localStorage.setItem(STORAGE_KEY, JSON.stringify(formInput));
 }
 
